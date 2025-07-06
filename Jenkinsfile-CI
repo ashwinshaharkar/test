@@ -1,0 +1,24 @@
+pipeline {
+    agent any
+
+    environment {
+        TARGET_DIR = '/root/myrepo'
+    }
+
+    stages {
+        stage('Clone Repo') {
+            steps {
+                git branch: 'develop',
+                    url: 'https://github.com/ashwinshaharkar/test.git'
+            }
+        }
+        stage('Copy Files') {
+            steps {
+                script {
+                    sh "mkdir -p ${env.TARGET_DIR}"
+                    sh "cp -r * ${env.TARGET_DIR}"
+                }
+            }
+        }
+    }
+}
