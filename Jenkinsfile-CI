@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        TARGET_DIR = '/tmp/myrepo' // or another safe, writable path
+        TARGET_DIR = '/root/myrepo' // or another safe, writable path
     }
 
     stages {
