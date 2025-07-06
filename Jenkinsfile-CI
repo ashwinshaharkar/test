@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        TARGET_DIR = '/root/myrepo'
+        TARGET_DIR = '/tmp/myrepo' // or another safe, writable path
     }
 
     stages {
@@ -12,13 +12,25 @@ pipeline {
                     url: 'https://github.com/ashwinshaharkar/test.git'
             }
         }
+
         stage('Copy Files') {
             steps {
                 script {
-                    sh "mkdir -p ${env.TARGET_DIR}"
-                    sh "cp -r * ${env.TARGET_DIR}"
+                    sh """
+                        if [ ! -d "${env.TARGET_DIR}" ]; then
+                            echo "Creating target directory..."
+                            mkdir -p "${env.TARGET_DIR}"
+                        fi
+                        rsync -av --exclude='.git' ./ "${env.TARGET_DIR}/"
+                    """
                 }
             }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()
         }
     }
 }
