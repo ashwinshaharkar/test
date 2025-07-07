@@ -13,7 +13,7 @@ pipeline {
             }
         }
 
-        stage('Deploy to Test') {
+        stage('Deploy to Prod') {
             steps {
                 script {
                     sh """

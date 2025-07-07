@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        TARGET_DIR = '/tmp/test-deploy'
+        TARGET_DIR = '/tmp/prod-deploy'
     }
 
     stages {
@@ -13,7 +13,7 @@ pipeline {
             }
         }
 
-        stage('Deploy to Test') {
+        stage('Deploy to Prod') {
             steps {
                 script {
                     sh """
