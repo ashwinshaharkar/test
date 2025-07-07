@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        TARGET_DIR = '/var/www/prod/'
+        TARGET_DIR = '/tmp/prod-deploy'
     }
 
     stages {
