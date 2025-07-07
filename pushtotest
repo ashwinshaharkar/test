@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+
+    environment {
+        TARGET_DIR = '/var/www/test/'
+    }
+
+    stages {
+        stage('Clone Repo') {
+            steps {
+                git branch: 'test',
+                    url: 'https://github.com/ashwinshaharkar/test.git'
+            }
+        }
+
+        stage('Deploy to Test') {
+            steps {
+                script {
+                    sh """
+                        if [ ! -d "${env.TARGET_DIR}" ]; then
+                            echo "Creating target directory..."
+                            mkdir -p "${env.TARGET_DIR}"
+                        fi
+                        rsync -av --exclude='.git' ./ "${env.TARGET_DIR}/"
+                    """
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()
+        }
+    }
+}
