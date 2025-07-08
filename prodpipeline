@@ -8,7 +8,8 @@ pipeline {
     stages {
         stage('Clone Repo') {
             steps {
-                git branch: 'develop',
+                cleanWs()
+                git branch: 'develop', 
                     url: 'https://github.com/ashwinshaharkar/test.git'
             }
         }
@@ -21,7 +22,7 @@ pipeline {
                             echo "Creating target directory..."
                             mkdir -p "${env.TARGET_DIR}"
                         fi
-                        rsync -av --exclude='.git' ./ "${env.TARGET_DIR}/"
+                        rsync -av --delete --exclude='.git' ./ "${env.TARGET_DIR}/"
                     """
                 }
             }
