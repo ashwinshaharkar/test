@@ -30,7 +30,12 @@ pipeline {
 
     post {
         success {
+            echo 'Test deployment succeeded!'
             build job: 'prod-pipeline', wait: false
+        }
+        always {
+            echo 'Cleaning workspace...'
+            cleanWs()
         }
     }
 }

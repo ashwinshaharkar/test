@@ -29,7 +29,14 @@ pipeline {
     }
 
     post {
+        success {
+            echo "Production deployment completed successfully."
+        }
+        failure {
+            echo "Production deployment failed."
+        }
         always {
+            echo 'Cleaning workspace...'
             cleanWs()
         }
     }
