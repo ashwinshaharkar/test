@@ -9,7 +9,7 @@ pipeline {
         stage('Clone Repo') {
             steps {
                 cleanWs()
-                git branch: 'master', 
+                git branch: 'develop', 
                     url: 'https://github.com/ashwinshaharkar/test.git'
             }
         }
